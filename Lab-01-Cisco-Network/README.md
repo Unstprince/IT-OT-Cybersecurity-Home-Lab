@@ -33,33 +33,33 @@ Connected my laptop to the Cisco devices using a console connection and PuTTY.
 
 ### Step 2 -Ssh and Basic Device configuration 
 
-Commands used for switch and Router
-Hostname R1/S1
+…Commands used for switch and Router
+Hostname R1/S1…
 
-enable algorithm-type sha256 secret #password#
-service password-encryption 
+…enable algorithm-type sha256 secret #password#
+service password-encryption…
 
-ip domain-name <Domain name>
+…ip domain-name <Domain name>
 crypto key generate rsa
-ip ssh version 2
+ip ssh version 2…
 
-username <username> privilege 15 secret #password#
+…username <username> privilege 15 secret #password#…
 
-login block-for 120 attempts 3 within 60s
+…login block-for 120 attempts 3 within 60s
 
-login on-success log
-login on-failure log
+…login on-success log
+login on-failure log…
 
 
-line vty 0 4
+…line vty 0 4
 login local 
 transport input ssh
-exit
+exit…
 
-line console 0
+…line console 0
 password <password>
 Login local
-exit
+exit…
 
 
 ### Step 3 - VLAN Configuration
@@ -68,7 +68,7 @@ Created VLANs on the Cisco Catalyst 3750X switch to separate network traffic.
 
 Commands used:
 
-vlan 10
+…vlan 10
  name IT
 vlan 20
  name OT
@@ -76,7 +76,7 @@ vlan 30
  name MANAGEMENT 
 vlan 99
  name NATIVE
-exit 
+exit …
 
 ### Step 4 - Management VLAN,SVI Configuration and Switchport Access Modes
 
@@ -85,11 +85,11 @@ switchport access mode for the management vlan.
 
 Commands used
 
-interface vlan 30
+…interface vlan 30
 ip add <ip address and subnet mask>
 no shut
 exit
-ip default gateway<router default gateway >
+ip default gateway<router default gateway >…
 
 interface g1/0/0
 switch port mode access
@@ -100,53 +100,53 @@ switchport access vlan 30
 
 commands use 
 interface g0/0/2
-switchport trunk encapsulation dot1q
+…switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport trunk allowed vlan,
 20,30,40
-no shutdown
+no shutdown…
 
 # On Router…Router on a stick
-interface Go/0/0
+…interface Go/0/0
 no shutdown 
-exit
+exit…
 
-interface G0/0/0.10
+…interface G0/0/0.10
 encapsulation dot1q 1
 exit
-ip address <default gateway of the interface>
+ip address <default gateway of the interface>…
 
-interface g0/0/0.20
+…interface g0/0/0.20
 encapsulation dot1q 20
 exit
-ip address <default gateway of the interface>
+ip address <default gateway of the interface>…
 
-interface G0/0/0.30
+…interface G0/0/0.30
 encapsulation dot1q 30
 exit
-ip address <default gateway of the interface>
+ip address <default gateway of the interface>…
 
 ## step 5 Verify inter vlan connection 
 
 commands used…
-show vlan brief
+…show vlan brief
 show interfaces trunk
 show ip interface brief
 ping <VLAN gateway>
-ping <device in another VLAN>
+ping <device in another VLAN>…
 
 ## Connectivity Verification:
-I verified that the VLANs 
+…I verified that the VLANs 
 and trunk were operational 
 and tested communication 
 between VLANs through the 
 router-on-a-stick 
-configuration.
+configuration…
 
 ## Step 6 
 i established a remote connection for the router and switche
 command used..
 
-ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 <username>@<IP-address>
+…ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 <username>@<IP-address>…
 
 
